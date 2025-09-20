@@ -7,10 +7,14 @@ public class Grid : MonoBehaviour
     
     [SerializeField] private GameObject _tilePrefab;
 
+    private float prefabSize;
+
     private Vector2 worldPos;
 
     private void Start()
     {
+        prefabSize = _tilePrefab.transform.localScale.x;
+        
         GenerateGrid();
     }
 
@@ -20,8 +24,13 @@ public class Grid : MonoBehaviour
         {
             for (int y = 0; y < _height; y++)
             {
-                GameObject spawnedTile = Instantiate(_tilePrefab, new Vector2(x, y), Quaternion.identity);
+                var spawnedTile = Instantiate(_tilePrefab, new Vector2(x, y), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
+                
+                Tile tile = spawnedTile.GetComponent<Tile>();
+                
+                var isOffset = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0);
+                tile.Init(isOffset);
             }
         }
     }
