@@ -14,7 +14,7 @@ public class Grid : MonoBehaviour
 
     //private Dictionary<Vector2, Tile> _tiles;
 
-    private void Start()
+    private void Awake()
     {
         prefabSize = _tilePrefab.transform.localScale.x;
         
