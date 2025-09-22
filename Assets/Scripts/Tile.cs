@@ -8,7 +8,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private SpriteRenderer _renderer;
     [SerializeField] private GameObject _highlight;
 
-
+    private bool isOccupied = false;
     void Start()
     {
         if (gameManager == null)
@@ -33,6 +33,16 @@ public class Tile : MonoBehaviour
 
     void OnMouseDown()
     {
-        gameManager.generatePlant(transform.position);
+        if (!isOccupied)
+        {
+            if (gameManager.generatePlant(transform.position))
+            {
+                isOccupied = true;
+            }
+        }
+        else
+        {
+            print("Tile is occupied");
+        }
     }
 }

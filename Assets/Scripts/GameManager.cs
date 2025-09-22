@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         plantSelector = plant;
     }
     
-    public void generatePlant(Vector2 plantPos)
+    public bool generatePlant(Vector2 plantPos)
     {
         //Getting current plant attributes
         PlaceholderPlant plantAtt = plantPrefabs[plantSelector].GetComponent<PlaceholderPlant>();
@@ -36,7 +36,9 @@ public class GameManager : MonoBehaviour
 
             plantSelector = 0;
             print("plant spawned");
+            return true;
         }
         else print("plant failed to spawn");
+        return false;
     }
 }

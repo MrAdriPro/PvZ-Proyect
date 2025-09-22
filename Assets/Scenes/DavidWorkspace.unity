@@ -393,7 +393,7 @@ MonoBehaviour:
   - {fileID: 9186256597907894098, guid: 80cb6ac9359b09d41bdcc00720724e70, type: 3}
   currentEnergyNum: {fileID: 1164816522}
   plantSelector: 0
-  energy: 100
+  energy: 200
 --- !u!4 &299670243
 Transform:
   m_ObjectHideFlags: 0
