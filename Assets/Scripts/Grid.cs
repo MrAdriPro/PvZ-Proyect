@@ -7,6 +7,8 @@ public class Grid : MonoBehaviour
     [SerializeField] private int _width, _height;
     
     [SerializeField] private GameObject _tilePrefab;
+    
+    [SerializeField] private GameObject _tileParent;
 
     private float prefabSize;
 
@@ -31,6 +33,7 @@ public class Grid : MonoBehaviour
             {
                 var spawnedTile = Instantiate(_tilePrefab, new Vector2(x * prefabSize, y * prefabSize), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
+                spawnedTile.transform.parent = _tileParent.transform;
                 
                 Tile tile = spawnedTile.GetComponent<Tile>();
                 
