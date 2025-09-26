@@ -1083,7 +1083,6 @@ MonoBehaviour:
   peaPrefab: {fileID: 8043949409385448226, guid: d0f323edab886c5479d839e0a7ff8cdc, type: 3}
   shootingPoint: {fileID: 310110178}
   shootInterval: 0.1
-  shootTimer: 0
 --- !u!1 &1974900580
 GameObject:
   m_ObjectHideFlags: 0
