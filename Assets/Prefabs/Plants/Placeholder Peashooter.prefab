@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 98551794466779497}
   - component: {fileID: 2241023052841628251}
   m_Layer: 0
-  m_Name: Peashooter
+  m_Name: Placeholder Peashooter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
