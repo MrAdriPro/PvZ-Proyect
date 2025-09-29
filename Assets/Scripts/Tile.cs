@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    private GameManager gameManager;
-    
     [SerializeField] private Color _baseColor, _offsetColor;
     [SerializeField] private SpriteRenderer _renderer;
     [SerializeField] private GameObject _highlight;
@@ -11,11 +9,7 @@ public class Tile : MonoBehaviour
     private bool isOccupied = false;
     void Start()
     {
-        if (gameManager == null)
-        {
-            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-            print("GameManager adquired succesfully");
-        }
+        
     }
     public void Init(bool isOffset)
     {
@@ -35,7 +29,7 @@ public class Tile : MonoBehaviour
     {
         if (!isOccupied)
         {
-            if (gameManager.generatePlant(transform.position))
+            if (GameManager.instance.generatePlant(transform.position))
             {
                 isOccupied = true;
             }

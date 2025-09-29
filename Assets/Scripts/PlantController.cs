@@ -1,11 +1,14 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class PeaShooter : MonoBehaviour
+public class PlantController : MonoBehaviour
 {
-    [SerializeField] private GameObject peaPrefab;
+    [SerializeField] private GameObject attackPrefab;
     [SerializeField] private Transform shootingPoint;
     public float shootInterval = 2f;
     private float shootTimer;
+
+    public int plantCost;
 
     private void Update()
     {
@@ -18,6 +21,6 @@ public class PeaShooter : MonoBehaviour
     }
     private void Shoot()
     {
-        Instantiate(peaPrefab, shootingPoint.position, Quaternion.identity);
+        Instantiate(attackPrefab, shootingPoint.position, Quaternion.identity);
     }
 }

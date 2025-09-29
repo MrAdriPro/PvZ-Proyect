@@ -1,15 +1,29 @@
+using System;
 using TMPro;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     [SerializeField] GameObject[] plantPrefabs;
     [SerializeField] private TextMeshProUGUI currentEnergyNum;
     
     public int plantSelector = 0;
     
     public int energy = 100;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Update()
     {
@@ -25,7 +39,7 @@ public class GameManager : MonoBehaviour
     public bool generatePlant(Vector2 plantPos)
     {
         //Getting current plant attributes
-        PlaceholderPlant plantAtt = plantPrefabs[plantSelector].GetComponent<PlaceholderPlant>();
+        PlantController plantAtt = plantPrefabs[plantSelector].GetComponent<PlantController>();
         int energySpent = plantAtt.plantCost;
 
         if (energySpent <= energy && plantSelector != 0)
@@ -40,5 +54,10 @@ public class GameManager : MonoBehaviour
         }
         else print("plant failed to spawn");
         return false;
+    }
+
+    public void AddEnergy(int energy)
+    {
+        energy += energy;
     }
 }
