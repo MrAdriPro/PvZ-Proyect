@@ -1543,12 +1543,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2803886102747890749, guid: 1119a76fa27323644879e941149e0045, type: 3}
-      propertyPath: jumpTimer
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2803886102747890749, guid: 1119a76fa27323644879e941149e0045, type: 3}
-      propertyPath: jumpTimerInitial
-      value: 0.5
+      propertyPath: sunFlower
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3298175065513165207, guid: 1119a76fa27323644879e941149e0045, type: 3}
       propertyPath: m_LocalPosition.x
