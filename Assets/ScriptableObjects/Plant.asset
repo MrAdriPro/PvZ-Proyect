@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a15226b647293c4b862edc306decafd, type: 3}
+  m_Name: Plant
+  m_EditorClassIdentifier: 
+  health: 100
+  damage: 20
+  attackRate: 1
+  cost: 50
+  plantPrefab: {fileID: 3041064225700585668, guid: 0fa828e213e549a438b2211ac0b99e71, type: 3}
+  attackPrefab: {fileID: 8043949409385448226, guid: d0f323edab886c5479d839e0a7ff8cdc, type: 3}
+  shootingPoint: {fileID: 0}
+  plantSound: {fileID: 0}
+  attackSound: {fileID: 0}
+  plantType: 0

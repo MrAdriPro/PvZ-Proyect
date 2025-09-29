@@ -23,4 +23,5 @@ public class PlantController : MonoBehaviour
     {
         Instantiate(attackPrefab, shootingPoint.position, Quaternion.identity);
     }
+
 }

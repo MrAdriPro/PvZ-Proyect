@@ -24,7 +24,9 @@ public class EnemySpawner : MonoBehaviour
             timer = 0f;
         }
     }
-
+    /// <summary>
+    /// This just spawns an enemy at a random spawner point
+    /// </summary>
     private void SpawnEnemy()
     {
         int index = Random.Range(0, spawnerPoints.Length);
