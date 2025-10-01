@@ -1542,9 +1542,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 485114270769938247, guid: 1119a76fa27323644879e941149e0045, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2134538046205952299, guid: 1119a76fa27323644879e941149e0045, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617451845110676597, guid: 1119a76fa27323644879e941149e0045, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2803886102747890749, guid: 1119a76fa27323644879e941149e0045, type: 3}
       propertyPath: sunFlower
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2803886102747890749, guid: 1119a76fa27323644879e941149e0045, type: 3}
+      propertyPath: maxRandomFall
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2803886102747890749, guid: 1119a76fa27323644879e941149e0045, type: 3}
+      propertyPath: minRandomFall
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3298175065513165207, guid: 1119a76fa27323644879e941149e0045, type: 3}
       propertyPath: m_LocalPosition.x

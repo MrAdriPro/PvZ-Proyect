@@ -29,61 +29,103 @@ public class SunCollectable : MonoBehaviour
     
     private bool sunDropping = true;
     private bool addedFall = false;
+
+    [Header("MaxRandomFall")] 
+    private bool randomSetted = false;
+    public float maxRandomFall = 5f; 
+    public float minRandomFall = 10f;
+    private float activeTimer = 1000f;
+    
     
 
     void Update()
     {
+        SunDrop();
+        // if (Input.GetMouseButtonDown(0))
+        // {
+        //     Vector3 mousePos = Input.mousePosition;
+        //     Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        //
+        //     if (Physics.Raycast(ray, out RaycastHit hit))
+        //     {
+        //         GameManager.instance.AddEnergy(sunGained);
+        //         Destroy(gameObject);
+        //     }
+        //     
+        //     
+        // }
+        
         //Sun spawned by sunflowers
-        if (sunFlower == true)
-        {
-            if (sunFalling == true)
-            {
-                AddGravity();
-            }
-            else if (sunFalling == false && jumpTimer > 0f)
-            {
-                jumpTimer -= Time.deltaTime;
-                if (addForced == false)
-                {
-                    _rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-                    addForced = true;
-                }
-            }
+        // if (sunFlower == true)
+        // {
+        //     if (sunFalling == true)
+        //     {
+        //         AddGravity();
+        //     }
+        //     else if (sunFalling == false && jumpTimer > 0f)
+        //     {
+        //         jumpTimer -= Time.deltaTime;
+        //         if (addForced == false)
+        //         {
+        //             _rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+        //             addForced = true;
+        //         }
+        //     }
+        //
+        //     if (jumpTimer <= 0f)
+        //     {
+        //         sunFalling = true;
+        //         StartCoroutine(ForceTimer());
+        //         jumpTimer = jumpTimerInitial;
+        //         addForced = false;
+        //     }
+        // }
+        // else
+        // {
+        //     if (sunDropping == true && jumpTimer > 0f)
+        //     {
+        //         fallTimer -= Time.deltaTime;
+        //         if (addedFall == false)
+        //         {
+        //             _rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+        //             addedFall = true;
+        //         }
+        //     }
+        //     else if (fallTimer <= 0f)
+        //     {
+        //         sunDropping = false;
+        //         if (addedFall == true)
+        //         {
+        //             _rb2d.AddForce(new Vector2(0, -jumpForce), ForceMode2D.Impulse);
+        //             addedFall = false;
+        //         }
+        //     }
+        // }
 
-            if (jumpTimer <= 0f)
-            {
-                sunFalling = true;
-                StartCoroutine(ForceTimer());
-                jumpTimer = jumpTimerInitial;
-                addForced = false;
-            }
-        }
-        else
-        {
-            if (sunDropping == true && jumpTimer > 0f)
-            {
-                fallTimer -= Time.deltaTime;
-                if (addedFall == false)
-                {
-                    _rb2d.AddForce(new Vector2(0, gravityForce), ForceMode2D.Impulse);
-                    addedFall = true;
-                }
-            }
-            else if (fallTimer <= 0f)
-            {
-                sunDropping = false;
-                if (addedFall == true)
-                {
-                    _rb2d.AddForce(new Vector2(0, -gravityForce), ForceMode2D.Impulse);
-                    addedFall = false;
-                }
-            }
-        }
+
     }
 
-    void AddGravity()
+    void SunDrop()
     {
-        transform.Translate(Vector3.down * gravityForce * Time.deltaTime);
+        bool fallActive = true;
+        
+        if (randomSetted == false)
+        {
+            activeTimer = Random.Range(minRandomFall, maxRandomFall);
+            randomSetted = true;
+        }
+        
+        if (fallActive && activeTimer >= 0)
+        {
+            activeTimer -= Time.deltaTime;
+            transform.Translate(Vector3.down * gravityForce * Time.deltaTime);
+        }
+        
+        if (activeTimer <= 0)
+        {
+            print("Caída terminada");
+            fallActive = false;
+        }
     }
 
 
