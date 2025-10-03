@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
-public class SunCollectable : MonoBehaviour
+public class SunCollectable : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] Rigidbody2D _rb2d;
     
@@ -118,7 +119,7 @@ public class SunCollectable : MonoBehaviour
         if (fallActive && activeTimer >= 0)
         {
             activeTimer -= Time.deltaTime;
-            transform.Translate(Vector3.down * gravityForce * Time.deltaTime);
+            transform.Translate(Vector3.down * (gravityForce * Time.deltaTime));
         }
         
         if (activeTimer <= 0)
@@ -126,6 +127,11 @@ public class SunCollectable : MonoBehaviour
             print("Caída terminada");
             fallActive = false;
         }
+    }
+
+    void SunFlowerDrop()
+    {
+        
     }
 
 
@@ -142,5 +148,10 @@ public class SunCollectable : MonoBehaviour
         yield return new WaitForSeconds(jumpTimer); 
         _rb2d.AddForce(new Vector2(0, -jumpForce), ForceMode2D.Impulse);
 
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("OnPointerClick");
     }
 }
