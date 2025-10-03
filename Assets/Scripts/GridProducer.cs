@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid : MonoBehaviour
+public class GridProducer : MonoBehaviour
 {
     [SerializeField] private int _width, _height;
     

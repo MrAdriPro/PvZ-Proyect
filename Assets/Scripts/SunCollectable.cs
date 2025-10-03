@@ -17,18 +17,12 @@ public class SunCollectable : MonoBehaviour
     public float jumpForce = 4f;
     public float jumpTimer = 1f;
     public float jumpTimerInitial = 1f;
-    
-    private bool sunFalling = false;
 
-    
-    private bool addForced = false;
 
     [Header("Fall variables")] 
     public float initialFallTimer = 3f;
     public float fallTimer = 3f;
     
-    private bool sunDropping = true;
-    private bool addedFall = false;
 
     [Header("MaxRandomFall")] 
     private bool randomSetted = false;
@@ -41,6 +35,7 @@ public class SunCollectable : MonoBehaviour
     void Update()
     {
         SunDrop();
+        ClickSun();
         // if (Input.GetMouseButtonDown(0))
         // {
         //     Vector3 mousePos = Input.mousePosition;
@@ -54,7 +49,7 @@ public class SunCollectable : MonoBehaviour
         //     
         //     
         // }
-        
+
         //Sun spawned by sunflowers
         // if (sunFlower == true)
         // {
@@ -129,12 +124,31 @@ public class SunCollectable : MonoBehaviour
     }
 
 
-    void OnMouseDown()
-    {
-        print("Sun Collectable");
-        GameManager.instance.AddEnergy(sunGained);
+    //void OnMouseDown()
+    //{
+    //    print("Sun Collectable");
+    //    GameManager.instance.AddEnergy(sunGained);
         
-        Destroy(gameObject);
+    //    Destroy(gameObject);
+    //}
+
+    private void ClickSun()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 mousePos = Input.mousePosition;
+            Ray ray = Camera.main.ScreenPointToRay(mousePos);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray);
+
+            if (hit.collider != null)
+            {
+                SunCollectable sun = hit.collider.GetComponent<SunCollectable>();
+                if (sun != null)
+                {
+                    GameManager.instance.AddEnergy(sunGained);
+                }
+            }
+        }
     }
 
     IEnumerator ForceTimer()

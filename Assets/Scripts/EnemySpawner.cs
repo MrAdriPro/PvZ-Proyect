@@ -14,6 +14,8 @@ public class EnemySpawner : MonoBehaviour
     public float spawnInterval = 2f;
     [BoxGroup("Spawner Settings")]
     private float timer;
+    [BoxGroup("Spawner Settings")]
+    public Transform enemyParent; 
 
     void Update()
     {
@@ -31,6 +33,7 @@ public class EnemySpawner : MonoBehaviour
     {
         int index = Random.Range(0, spawnerPoints.Length);
         Transform spawnPoint = spawnerPoints[index];
-        Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+        GameObject enemyInstance = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+        enemyInstance.transform.SetParent(enemyParent);
     }
 }
