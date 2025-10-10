@@ -56,8 +56,8 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    public void AddEnergy(int energy)
+    public void AddEnergy(int sunGained)
     {
-        energy += energy;
+        energy += sunGained;
     }
 }
