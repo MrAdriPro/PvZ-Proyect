@@ -2,17 +2,16 @@ using UnityEngine;
 
 public class Zombie : MonoBehaviour
 {
-    [SerializeField] private int health = 100;
-    [SerializeField] private float speed = 1f;
+    public ZombieData data;
     private void Update()
     {
-        transform.Translate(Vector3.left * speed * Time.deltaTime);
+        transform.Translate(Vector3.left * data.speed * Time.deltaTime);
     }
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        if (health <= 0)
+        data.maxHealth -= damage;
+        if (data.maxHealth <= 0)
         {
             Die();
         }

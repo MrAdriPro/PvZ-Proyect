@@ -3,17 +3,15 @@ using UnityEngine.Serialization;
 
 public class PlantController : MonoBehaviour
 {
-    [SerializeField] private GameObject attackPrefab;
-    [SerializeField] private Transform shootingPoint;
-    public float shootInterval = 2f;
+    public PlantData data;
     private float shootTimer;
+    public Transform projectileTransform;
 
-    public int plantCost;
 
     private void Update()
     {
         shootTimer += Time.deltaTime;
-        if(shootTimer >= shootInterval)
+        if(shootTimer >= data.attackCooldown)
         {
             Shoot();
             shootTimer = 0f;
@@ -21,7 +19,7 @@ public class PlantController : MonoBehaviour
     }
     private void Shoot()
     {
-        Instantiate(attackPrefab, shootingPoint.position, Quaternion.identity);
+        Instantiate(data.projectilePrefab, projectileTransform.position, Quaternion.identity);
     }
 
 }
