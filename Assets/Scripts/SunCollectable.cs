@@ -6,16 +6,11 @@ using UnityEngine.UIElements;
 
 public class SunCollectable : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] Rigidbody2D _rb2d;
     
     [Header("general")]
-    public int sunGained = 50;
+    public int sunValue = 50;
     public float gravityForce = 9.8f;
     public bool sunFlower = false;
-
-    
-    private bool sunDropping = true;
-    private bool addedFall = false;
 
     [Header("MaxRandomFall")] 
     private bool randomSetted = false;
@@ -37,6 +32,8 @@ public class SunCollectable : MonoBehaviour, IPointerClickHandler
     private bool randomSideSetted = false;
     public float maxSideForce = 0.5f;
     public float minSideForce = -0.5f;
+    private float sideForce = 0f;
+
         
 
     void Update()
@@ -76,7 +73,6 @@ public class SunCollectable : MonoBehaviour, IPointerClickHandler
 
     void SunFlowerDrop()
     {
-        float sideForce = 0f;
         
         if (randomSideSetted == false)
         {
@@ -114,7 +110,7 @@ public class SunCollectable : MonoBehaviour, IPointerClickHandler
     void OnMouseDown()
     {
         print("Sun Collectable");
-        GameManager.instance.AddEnergy(sunGained);
+        GameManager.instance.AddEnergy(sunValue);
         
         Destroy(gameObject);
     }

@@ -86,10 +86,12 @@ MonoBehaviour:
   sunFlower: 1
   maxRandomFall: 2.5
   minRandomFall: 5
-  ascendForce: 4
-  descendForce: 2
+  ascendForce: 2
+  descendForce: 2.5
   ascendTimer: 0.5
-  descendTimer: 1
+  descendTimer: 0.75
+  maxSideForce: 1.5
+  minSideForce: -1.5
 --- !u!58 &1078547363466512236
 CircleCollider2D:
   m_ObjectHideFlags: 0
