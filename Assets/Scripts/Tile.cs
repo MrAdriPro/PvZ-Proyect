@@ -18,25 +18,34 @@ public class Tile : MonoBehaviour
 
     void OnMouseEnter()
     {
-        _highlight.SetActive(true);
+        if (GameManager.instance.gameStarted == true)
+        {
+            _highlight.SetActive(true);
+        }
     }
     void OnMouseExit()
     {
-        _highlight.SetActive(false);
+        if (GameManager.instance.gameStarted == true)
+        {
+            _highlight.SetActive(false);
+        }
     }
 
     void OnMouseDown()
     {
-        if (!isOccupied)
+        if (GameManager.instance.gameStarted == true)
         {
-            if (GameManager.instance.generatePlant(transform.position))
+            if (!isOccupied)
             {
-                isOccupied = true;
+                if (GameManager.instance.generatePlant(transform.position))
+                {
+                    isOccupied = true;
+                }
             }
-        }
-        else
-        {
-            print("Tile is occupied");
+            else
+            {
+                print("Tile is occupied");
+            }
         }
     }
 }

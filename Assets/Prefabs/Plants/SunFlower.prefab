@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPrefab: {fileID: 4670375159024712175, guid: a375f43d599e8a348bd8c20147c70236, type: 3}
   shootingPoint: {fileID: 5045770415909131348}
-  shootInterval: 2
+  shootInterval: 24
   plantCost: 50
 --- !u!1 &5899230531537950842
 GameObject:
