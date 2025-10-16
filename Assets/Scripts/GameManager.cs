@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,19 +9,30 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [SerializeField] GameObject[] plantPrefabs;
     [SerializeField] private TextMeshProUGUI currentEnergyNum;
-
+    
+    //public Dictionary<string, GameObject> dictio  = new Dictionary<string, GameObject>();    
+    
     public int plantSelector = 0;
-
+    
     public int energy = 100;
+    
+    public bool gameStarted = false;
 
     private void Awake()
     {
-        if (instance == null) { instance = this; }
-        else { Destroy(gameObject); }
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Update()
     {
+        //Update energy number on interface
         currentEnergyNum.text = energy.ToString();
     }
 
@@ -27,39 +40,30 @@ public class GameManager : MonoBehaviour
     {
         plantSelector = plant;
     }
-
+    
     public bool generatePlant(Vector2 plantPos)
     {
-        if (plantSelector == 0 || plantSelector >= plantPrefabs.Length)
+        if (gameStarted == true)
         {
-            print("Selección de planta inválida.");
+            //Getting current plant attributes
+            PlantController plantAtt = plantPrefabs[plantSelector].GetComponent<PlantController>();
+            int energySpent = plantAtt.plantCost;
+
+            if (energySpent <= energy && plantSelector != 0)
+            {
+                //Generate plant in tileposition and spend energyCost previously extracted from plant
+                Instantiate(plantPrefabs[plantSelector], plantPos, Quaternion.identity);
+                energy -= energySpent;
+
+                plantSelector = 0;
+                print("plant spawned");
+                return true;
+            }
+            else print("plant failed to spawn");
+
             return false;
         }
-
-        PlantController plantControllerPrefab = plantPrefabs[plantSelector].GetComponent<PlantController>();
-
-        if (plantControllerPrefab == null || plantControllerPrefab.data == null)
-        {
-            Debug.LogError("El prefab de la planta no tiene PlantController o PlantData asignado.");
-            return false;
-        }
-
-        int energySpent = plantControllerPrefab.data.sunCost;
-
-        if (energySpent <= energy)
-        {
-            Instantiate(plantPrefabs[plantSelector], plantPos, Quaternion.identity);
-            energy -= energySpent;
-
-            plantSelector = 0;
-            print("plant spawned");
-            return true;
-        }
-        else
-        {
-            print("plant failed to spawn: Not enough energy.");
-            return false;
-        }
+        else return false;
     }
 
     public void AddEnergy(int sunGained)
@@ -67,4 +71,3 @@ public class GameManager : MonoBehaviour
         energy += sunGained;
     }
 }
-

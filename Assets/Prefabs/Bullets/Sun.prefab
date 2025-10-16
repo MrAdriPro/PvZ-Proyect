@@ -80,8 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27d23c448362394699d81f10e7688fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb2d: {fileID: 485114270769938247}
-  sunGained: 100
+  sunValue: 25
   gravityForce: 2
   sunFlower: 0
   maxRandomFall: 2.5
@@ -90,6 +89,8 @@ MonoBehaviour:
   descendForce: 2
   ascendTimer: 0.5
   descendTimer: 1
+  maxSideForce: 0.5
+  minSideForce: -0.5
 --- !u!58 &1078547363466512236
 CircleCollider2D:
   m_ObjectHideFlags: 0

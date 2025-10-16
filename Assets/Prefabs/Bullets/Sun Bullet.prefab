@@ -80,8 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27d23c448362394699d81f10e7688fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb2d: {fileID: 0}
-  sunGained: 100
+  sunValue: 25
   gravityForce: 2
   sunFlower: 1
   maxRandomFall: 2.5
