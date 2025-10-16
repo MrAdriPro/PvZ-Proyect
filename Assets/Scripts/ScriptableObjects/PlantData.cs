@@ -7,6 +7,9 @@ public class PlantData : UnitData
     public float attackCooldown;
     public GameObject projectilePrefab;
     public float attackRange;
+    public float bulletSpeed = 5f;
+    public int damage = 1;
+    
 
 
     public override void Attack(GameObject target)

@@ -3,6 +3,11 @@ using UnityEngine;
 public class Zombie : MonoBehaviour
 {
     public ZombieData data;
+    private float health;
+    private void Start()
+    {
+        health = data.maxHealth;
+    }
     private void Update()
     {
         transform.Translate(Vector3.left * data.speed * Time.deltaTime);
@@ -10,8 +15,8 @@ public class Zombie : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        data.maxHealth -= damage;
-        if (data.maxHealth <= 0)
+       health -= damage;
+        if (health <= 0)
         {
             Die();
         }

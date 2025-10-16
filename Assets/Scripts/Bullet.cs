@@ -3,15 +3,14 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 5f;
-    public int damage = 1;
-    public float lifetime = 8f;
+    public PlantData data;
+    public float bulletLifetime = 8f;
 
     private void Update()
     {
-        transform.Translate(Vector3.right * speed * Time.deltaTime);
-        lifetime -= Time.deltaTime;
-        if (lifetime <= 0f)
+        transform.Translate(Vector3.right * data.bulletSpeed * Time.deltaTime);
+        bulletLifetime -= Time.deltaTime;
+        if (bulletLifetime <= 0f)
         {
             Destroy(gameObject);
         }
@@ -24,7 +23,7 @@ public class Bullet : MonoBehaviour
             Zombie zombie = collision.GetComponent<Zombie>();
             if (zombie != null)
             {
-                zombie.TakeDamage(damage);
+                zombie.TakeDamage(data.damage);
             }
             Destroy(gameObject);
         }
