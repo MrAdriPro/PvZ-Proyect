@@ -6,7 +6,12 @@ public class PlantController : MonoBehaviour
     public PlantData data;
     private float shootTimer;
     public Transform projectileTransform;
+    private float health = 0;
 
+    private void Start()
+    {
+        health = data.maxHealth;
+    }
 
     private void Update()
     {
@@ -27,6 +32,18 @@ public class PlantController : MonoBehaviour
         {
             Shoot();
         }
+    }
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if(data.maxHealth <= 0)
+        {
+            Die();
+        }
+    }
+    private void Die()
+    {
+        Destroy(gameObject);
     }
     private void OnDrawGizmos()
     {

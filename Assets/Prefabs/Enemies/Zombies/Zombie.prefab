@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 2f48bd0db39d2c44b88ce9506d333a98, type: 2}
+  attackStopDistance: 0.2
 --- !u!50 &4462386951455990053
 Rigidbody2D:
   serializedVersion: 5

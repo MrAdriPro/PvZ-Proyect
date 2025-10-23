@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45f03ff8fff865b47ab523e7cf20b78f, type: 3}
   m_Name: BasicZombie
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 500
   speed: 0.5
   modelPrefab: {fileID: 5072209196345074959, guid: 574579c9dd38529459e76ecd4cbef1e3, type: 3}
-  attackDamage: 1
+  attackDamage: 20
   attackRate: 1
+  attackRange: 5
   isArmored: 0
