@@ -111,10 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9740ee6ecf791a4da959331a5abb9c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPrefab: {fileID: 4670375159024712175, guid: a375f43d599e8a348bd8c20147c70236, type: 3}
-  shootingPoint: {fileID: 5045770415909131348}
-  shootInterval: 24
-  plantCost: 50
+  data: {fileID: 11400000, guid: d9f0e6773f09d0044b2eb18fb923c6e2, type: 2}
+  projectileTransform: {fileID: 5045770415909131348}
 --- !u!1 &5899230531537950842
 GameObject:
   m_ObjectHideFlags: 0

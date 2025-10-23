@@ -40,30 +40,51 @@ public class GameManager : MonoBehaviour
     {
         plantSelector = plant;
     }
-    
+
     public bool generatePlant(Vector2 plantPos)
     {
-        if (gameStarted == true)
+        if (!gameStarted)
+            return false;
+
+        if (plantSelector <= 0 || plantSelector >= plantPrefabs.Length)
         {
-            //Getting current plant attributes
-            PlantController plantAtt = plantPrefabs[plantSelector].GetComponent<PlantController>();
-            int energySpent = plantAtt.plantCost;
-
-            if (energySpent <= energy && plantSelector != 0)
-            {
-                //Generate plant in tileposition and spend energyCost previously extracted from plant
-                Instantiate(plantPrefabs[plantSelector], plantPos, Quaternion.identity);
-                energy -= energySpent;
-
-                plantSelector = 0;
-                print("plant spawned");
-                return true;
-            }
-            else print("plant failed to spawn");
-
+            Debug.LogWarning($"generatePlant: plantSelector inválido ({plantSelector}).");
             return false;
         }
-        else return false;
+
+        GameObject prefab = plantPrefabs[plantSelector];
+        if (prefab == null)
+        {
+            Debug.LogWarning($"generatePlant: prefab en el índice {plantSelector} es null.");
+            return false;
+        }
+
+        PlantController plantAtt = prefab.GetComponent<PlantController>();
+        if (plantAtt == null)
+        {
+            Debug.LogWarning($"generatePlant: el prefab '{prefab.name}' no tiene PlantController.");
+            return false;
+        }
+
+        if (plantAtt.data == null)
+        {
+            Debug.LogWarning($"generatePlant: PlantData no asignado en el PlantController del prefab '{prefab.name}'.");
+            return false;
+        }
+
+        int energySpent = plantAtt.data.sunCost;
+
+        if (energySpent <= energy)
+        {
+            Instantiate(prefab, plantPos, Quaternion.identity);
+            energy -= energySpent;
+            plantSelector = 0;
+            Debug.Log("plant spawned");
+            return true;
+        }
+
+        Debug.Log("plant failed to spawn: not enough energy");
+        return false;
     }
 
     public void AddEnergy(int sunGained)

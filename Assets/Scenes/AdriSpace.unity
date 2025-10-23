@@ -442,6 +442,7 @@ MonoBehaviour:
   currentEnergyNum: {fileID: 1164816522}
   plantSelector: 0
   energy: 200
+  gameStarted: 0
 --- !u!4 &299670243
 Transform:
   m_ObjectHideFlags: 0

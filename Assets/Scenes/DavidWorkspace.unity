@@ -618,7 +618,7 @@ MonoBehaviour:
   - {fileID: 3041064225700585668, guid: a7b2334c361fa9e4d81a7d4927cc73bc, type: 3}
   currentEnergyNum: {fileID: 1164816522}
   plantSelector: 0
-  energy: 0
+  energy: 200
   gameStarted: 1
 --- !u!4 &299670243
 Transform:
@@ -1844,7 +1844,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1588297872
 Transform:
   m_ObjectHideFlags: 0
