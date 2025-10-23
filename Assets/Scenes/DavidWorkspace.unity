@@ -4448,6 +4448,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca6afb4f914a3f14e90b7e5afaa17d4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deckSelector: []
+  plant1: {fileID: 0}
 --- !u!1 &1736117384
 GameObject:
   m_ObjectHideFlags: 0
@@ -5516,7 +5518,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: 100, y: 100}
+  m_Spacing: {x: 80, y: 100}
   m_Constraint: 2
   m_ConstraintCount: 1
 --- !u!1 &2145238284
