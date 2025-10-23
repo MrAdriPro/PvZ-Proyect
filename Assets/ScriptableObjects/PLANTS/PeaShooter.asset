@@ -18,8 +18,6 @@ MonoBehaviour:
   sunCost: 100
   attackCooldown: 1
   projectilePrefab: {fileID: 8043949409385448226, guid: d0f323edab886c5479d839e0a7ff8cdc, type: 3}
-  attackRange: 5
+  attackRange: 5.24
   bulletSpeed: 5
   damage: 10
-  bulletLifetime: 4.560211
-  startLifeTime: 20

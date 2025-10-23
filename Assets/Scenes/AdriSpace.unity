@@ -766,11 +766,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a375f43d599e8a348bd8c20147c70236, type: 3}
---- !u!4 &948580276 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3808179597269913884, guid: 57e8cbb357e42934db7a929e7227f2c4, type: 3}
-  m_PrefabInstance: {fileID: 967311747}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &967311747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -819,29 +814,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 503043932712161018, guid: 57e8cbb357e42934db7a929e7227f2c4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.71
-      objectReference: {fileID: 0}
-    - target: {fileID: 649170192599194085, guid: 57e8cbb357e42934db7a929e7227f2c4, type: 3}
-      propertyPath: spawnerPoints.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 649170192599194085, guid: 57e8cbb357e42934db7a929e7227f2c4, type: 3}
-      propertyPath: 'spawnerPoints.Array.data[4]'
-      value: 
-      objectReference: {fileID: 948580276}
     - target: {fileID: 1018800915757870626, guid: 57e8cbb357e42934db7a929e7227f2c4, type: 3}
       propertyPath: m_Name
       value: EnemySpawner (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2442410205796006780, guid: 57e8cbb357e42934db7a929e7227f2c4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 7366250709508221549, guid: 57e8cbb357e42934db7a929e7227f2c4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.96
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
