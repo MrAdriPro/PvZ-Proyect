@@ -24,13 +24,13 @@ public class EnemySpawner : MonoBehaviour
     public float timeToMaxRate = 300f;
 
     [BoxGroup("Spawner Settings")]
-    [Tooltip("Límite público (float) de enemigos activos permitidos. Se usa como int al aplicar.")]
+    [Tooltip("Límite público de enemigos activos permitidos.")]
     public float maxActiveEnemies = 30f;
 
     [BoxGroup("Spawner Settings")]
     private float timer;
     [BoxGroup("Spawner Settings")]
-    private float elapsedTime;
+    [SerializeField] private float elapsedTime;
 
     [BoxGroup("Spawner Settings")]
     public Transform enemyParent; 
