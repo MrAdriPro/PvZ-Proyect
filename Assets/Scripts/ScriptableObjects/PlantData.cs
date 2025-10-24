@@ -10,6 +10,9 @@ public class PlantData : UnitData
     public float bulletSpeed = 5f;
     public int damage = 1;
     public PlantType plantType;
+    
+    [SerializeField] 
+    public string description;
 }
 public enum PlantType : byte
 {
