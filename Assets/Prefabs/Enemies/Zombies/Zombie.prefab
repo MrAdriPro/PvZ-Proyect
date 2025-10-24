@@ -16,7 +16,7 @@ GameObject:
   m_Layer: 6
   m_Name: Zombie
   m_TagString: Zombie
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 2f48bd0db39d2c44b88ce9506d333a98, type: 2}
-  attackStopDistance: 0.2
+  animatorZombie: {fileID: 0}
 --- !u!50 &4462386951455990053
 Rigidbody2D:
   serializedVersion: 5
@@ -190,7 +190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: aa099da6b4536ee44b5fc93dc470766c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: aa099da6b4536ee44b5fc93dc470766c, type: 3}
       propertyPath: m_LocalPosition.z

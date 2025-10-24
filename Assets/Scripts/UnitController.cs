@@ -29,10 +29,7 @@ public class UnitController : MonoBehaviour
         }
     }
 
-    public void PerformAttack(GameObject target)
-    {
-        unitData.Attack(target);
-    }
+    
 
     private void Die()
     {

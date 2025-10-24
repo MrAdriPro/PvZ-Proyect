@@ -6,16 +6,24 @@ public class Zombie : MonoBehaviour
     private float health;
     private float attackCooldownTimer = 0f;
     private bool isAttacking = false;
+    [SerializeField] private Animator animatorZombie;
 
     private void Start()
     {
-            health = data.maxHealth;
+        health = data != null ? data.maxHealth : 0f;
+        animatorZombie = GetComponentInChildren<Animator>();
+
     }
 
     private void Update()
     {
-        if (data != null)
+        if (data != null && !isAttacking)
+        {
+
             transform.Translate(Vector3.left * data.speed * Time.deltaTime);
+            animatorZombie.SetBool("isAttacking", true);
+        }
+
 
         if (attackCooldownTimer > 0f)
             attackCooldownTimer -= Time.deltaTime;
@@ -50,17 +58,34 @@ public class Zombie : MonoBehaviour
 
     private void AttackInRange()
     {
+        if (data == null)
+            return;
+
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, data.attackRange, LayerMask.GetMask("Plant"));
         if (hit.collider != null)
         {
-            
-                isAttacking = true;
-                if(isAttacking)
+            isAttacking = true;
+            if(attackCooldownTimer <= 0f)
+            {
                 Attack(hit.collider.gameObject);
+
+                if (data.attackRate > 0f)
+                    attackCooldownTimer = 1f / data.attackRate;
+            }
+            
+        }
+        else
+        {
+            isAttacking = false;
+            animatorZombie.SetBool("isAttacking", false);
         }
     }
+
     private void OnDrawGizmos()
     {
+        if (data == null)
+            return;
+
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.left * data.attackRange);
     }

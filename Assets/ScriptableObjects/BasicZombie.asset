@@ -15,7 +15,7 @@ MonoBehaviour:
   maxHealth: 500
   speed: 0.5
   modelPrefab: {fileID: 5072209196345074959, guid: 574579c9dd38529459e76ecd4cbef1e3, type: 3}
-  attackDamage: 20
+  attackDamage: 2
   attackRate: 1
-  attackRange: 5
+  attackRange: 0.5
   isArmored: 0

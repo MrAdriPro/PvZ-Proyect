@@ -9,16 +9,13 @@ public class PlantData : UnitData
     public float attackRange;
     public float bulletSpeed = 5f;
     public int damage = 1;
-    
+    public PlantType plantType;
+}
+public enum PlantType : byte
+{
+    Peashooter,
+    Sunflower,
+    WallNut,
+    CherryBomb
 
-
-    public override void Attack(GameObject target)
-    {
-        //if(projectilePrefab != null && target != null)
-        //{
-        //    GameObject projectile = Instantiate(projectilePrefab);
-        //    Bullet projController = projectile.GetComponent<Bullet>();
-            
-        //}
-    }
 }

@@ -6,11 +6,11 @@ public class PlantController : MonoBehaviour
     public PlantData data;
     private float shootTimer;
     public Transform projectileTransform;
-    private float health = 0;
+    [SerializeField] private float currentHealth;
 
     private void Start()
     {
-        health = data.maxHealth;
+        currentHealth = data.maxHealth;
     }
 
     private void Update()
@@ -18,7 +18,7 @@ public class PlantController : MonoBehaviour
         shootTimer += Time.deltaTime;
         if(shootTimer >= data.attackCooldown)
         {
-            InRange();
+            PlantsBehaviour();
             shootTimer = 0f;
         }
     }
@@ -26,24 +26,32 @@ public class PlantController : MonoBehaviour
     {
         Instantiate(data.projectilePrefab, projectileTransform.position, Quaternion.identity);
     }
-    private void InRange()
+    private void PlantsBehaviour()
     {
-        if(Physics2D.Raycast(transform.position, Vector2.right, data.attackRange, LayerMask.GetMask("Enemy")))
+        if(data.plantType == PlantType.Peashooter)
+        {
+            if (Physics2D.Raycast(transform.position, Vector2.right, data.attackRange, LayerMask.GetMask("Enemy")))
+            {
+                Shoot();
+            }
+        }
+        if(data.plantType == PlantType.Sunflower)
         {
             Shoot();
         }
+
     }
     public void TakeDamage(float damage)
     {
-        health -= damage;
-        if(data.maxHealth <= 0)
+        currentHealth -= damage;
+        if(currentHealth <= 0)
         {
             Die();
         }
     }
     private void Die()
     {
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
     private void OnDrawGizmos()
     {

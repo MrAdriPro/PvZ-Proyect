@@ -18,6 +18,7 @@ MonoBehaviour:
   sunCost: 50
   attackCooldown: 2
   projectilePrefab: {fileID: 4670375159024712175, guid: a375f43d599e8a348bd8c20147c70236, type: 3}
-  attackRange: 0
+  attackRange: 1
   bulletSpeed: 5
   damage: 1
+  plantType: 1

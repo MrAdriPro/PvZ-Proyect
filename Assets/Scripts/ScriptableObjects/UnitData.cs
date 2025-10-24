@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class UnitData : ScriptableObject
@@ -6,6 +7,7 @@ public abstract class UnitData : ScriptableObject
     public float maxHealth;
     public float speed;
     public GameObject modelPrefab;
+    
 
-    public abstract void Attack(GameObject target);
+    
 }
