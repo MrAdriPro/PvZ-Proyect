@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewPlant", menuName = "PVZ/Unit/Plant")]

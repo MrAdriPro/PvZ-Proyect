@@ -75,7 +75,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5796980740929147384}
   - component: {fileID: 2512077586834897886}
-  - component: {fileID: -5424026271834962257}
   - component: {fileID: -6774744257315971984}
   - component: {fileID: -7804441423081926470}
   m_Layer: 7
@@ -116,19 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 3ed6c0e1651d0b14caa40b10cfae2e08, type: 2}
   projectileTransform: {fileID: 5045770415909131348}
---- !u!114 &-5424026271834962257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3041064225700585668}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9887ebcabe36184398b566e93a4a04a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitData: {fileID: 11400000, guid: 3ed6c0e1651d0b14caa40b10cfae2e08, type: 2}
+  currentHealth: 0
 --- !u!70 &-6774744257315971984
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
