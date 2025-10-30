@@ -21,3 +21,7 @@ MonoBehaviour:
   attackRange: 5.24
   bulletSpeed: 5
   damage: 10
+  plantType: 0
+  plantSprite: {fileID: 5817905988260723586, guid: 92acd537a08075845b86a18004af9214, type: 3}
+  description: Lanzajisantes type shi
+  plantName: Lanzaguisantes
