@@ -7,23 +7,30 @@ public class Zombie : MonoBehaviour
     private float attackCooldownTimer = 0f;
     private bool isAttacking = false;
     [SerializeField] private Animator animatorZombie;
+    private EnemySpawner spawner;
+    private int lineIndex;
+
+    public void SetSpawnerReference(EnemySpawner s, int index, int enemyCost)
+    {
+        spawner = s;
+        lineIndex = index;
+    }
 
     private void Start()
     {
+        // Importante: Asume que ZombieData hereda de UnitData que contiene 'maxHealth'
         health = data != null ? data.maxHealth : 0f;
         animatorZombie = GetComponentInChildren<Animator>();
-
     }
 
     private void Update()
     {
+        // Movimiento: Solo si no está atacando
         if (data != null && !isAttacking)
         {
-
             transform.Translate(Vector3.left * data.speed * Time.deltaTime);
-            animatorZombie.SetBool("isAttacking", true);
+            animatorZombie.SetBool("isWalking", true);
         }
-
 
         if (attackCooldownTimer > 0f)
             attackCooldownTimer -= Time.deltaTime;
@@ -41,6 +48,11 @@ public class Zombie : MonoBehaviour
 
     private void Die()
     {
+        if (spawner != null)
+        {
+            // Notifica al spawner para liberar 1 slot en la línea
+            spawner.EnemyDied(lineIndex);
+        }
         Destroy(gameObject);
     }
 
@@ -49,6 +61,7 @@ public class Zombie : MonoBehaviour
         if (target == null || data == null)
             return;
 
+        // Asume que el objetivo tiene un script PlantController con TakeDamage
         var plantController = target.GetComponent<PlantController>();
         if (plantController != null)
         {
@@ -65,17 +78,20 @@ public class Zombie : MonoBehaviour
         if (hit.collider != null)
         {
             isAttacking = true;
-            if(attackCooldownTimer <= 0f)
+            animatorZombie.SetBool("isAttacking", true);
+            animatorZombie.SetBool("isWalking", false);
+
+            if (attackCooldownTimer <= 0f)
             {
                 Attack(hit.collider.gameObject);
 
                 if (data.attackRate > 0f)
                     attackCooldownTimer = 1f / data.attackRate;
             }
-            
         }
         else
         {
+            // Moviéndose
             isAttacking = false;
             animatorZombie.SetBool("isAttacking", false);
         }

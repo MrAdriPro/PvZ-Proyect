@@ -2,48 +2,69 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [System.Serializable]
+    public struct EnemyType
+    {
+        public GameObject prefab;
+        public int cost;
+    }
+
     [Header("Enemy Spawner Settings")]
-    [BoxGroup("Spawner Settings")]
+    [BoxGroup("Spawner Config")]
     public Transform[] spawnerPoints;
-    [BoxGroup("Spawner Settings")]
-    public GameObject enemyPrefab;
-    [BoxGroup("Spawner Settings")]
-    [Tooltip("Intervalo inicial entre spawn (segundos) — más alto = menos enemigos al principio)")]
-    public float startSpawnInterval = 3f;
-    [BoxGroup("Spawner Settings")]
-    [Tooltip("Intervalo mínimo entre spawn (segundos) — límite de rapidez)")]
-    public float minSpawnInterval = 0.5f;
-    [BoxGroup("Spawner Settings")]
-    [Tooltip("Tiempo (segundos) que tarda en alcanzar la tasa máxima (minSpawnInterval)")]
+
+    [BoxGroup("Spawner Config")]
+    public List<EnemyType> availableEnemies;
+
+    [BoxGroup("Tasa de Spawn")]
+    public float startSpawnInterval = 10f;
+    [BoxGroup("Tasa de Spawn")]
+    public float minSpawnInterval = 3f;
+    [BoxGroup("Tasa de Spawn")]
     public float timeToMaxRate = 300f;
-    [BoxGroup("Spawner Settings")]
-    [Tooltip("Límite público de enemigos activos permitidos.")]
-    public float maxActiveEnemies = 30f;
-    [BoxGroup("Spawner Settings")]
-    [Tooltip("Cantidad inicial de enemigos que se generan por evento de spawn")]
-    public float startEnemiesPerSpawn = 1f;
-    [BoxGroup("Spawner Settings")]
-    [Tooltip("Cantidad máxima de enemigos por evento de spawn")]
-    public float maxEnemiesPerSpawn = 5f;
 
-    [BoxGroup("Spawner Settings")]
-    [Tooltip("Tiempo (segundos) que tarda en alcanzar la cantidad máxima por spawn")]
-    public float timeToMaxEnemies = 300f;
+    [BoxGroup("Tasa de Spawn")]
+    public float spawnBurstDelay = 0.5f;
 
-    [BoxGroup("Spawner Settings")]
-    [Tooltip("Radio usado para determinar si un spawn point está ocupado (mismos valores en unidades del mundo).")]
-    public float spawnPointOccupationRadius = 0.5f;
+    [BoxGroup("Cantidad/Presupuesto")]
+    public int startSpawnAmount = 1;
+    [BoxGroup("Cantidad/Presupuesto")]
+    public int maxSpawnAmount = 5;
+    [BoxGroup("Cantidad/Presupuesto")]
+    public float timeToMaxAmount = 300f;
 
-    [BoxGroup("Spawner Settings")]
+    [BoxGroup("Límite por Línea")]
+    public int maxEnemiesPerLine = 8;
+
+    [BoxGroup("Límite por Línea")]
+    public float spawnPointOccupationRadius = 2f;
+
+    [BoxGroup("Contenedor")]
+    public Transform enemyParent;
+
+    [BoxGroup("Runtime Data")]
     private float timer;
-    [BoxGroup("Spawner Settings")]
+    [BoxGroup("Runtime Data")]
     [SerializeField] private float elapsedTime;
 
-    [BoxGroup("Spawner Settings")]
-    public Transform enemyParent; 
+    private int[] currentLineCounts;
+    private bool isSpawning = false;
+
+    private void Start()
+    {
+        if (spawnerPoints != null)
+        {
+            currentLineCounts = new int[spawnerPoints.Length];
+        }
+        else
+        {
+            enabled = false;
+        }
+    }
 
     void Update()
     {
@@ -52,60 +73,101 @@ public class EnemySpawner : MonoBehaviour
         float tRate = timeToMaxRate > 0f ? Mathf.Clamp01(elapsedTime / timeToMaxRate) : 1f;
         float currentInterval = Mathf.Lerp(startSpawnInterval, minSpawnInterval, tRate);
 
-        float tCount = timeToMaxEnemies > 0f ? Mathf.Clamp01(elapsedTime / timeToMaxEnemies) : 1f;
-        int enemiesPerSpawn = Mathf.Max(1, Mathf.RoundToInt(Mathf.Lerp(startEnemiesPerSpawn, maxEnemiesPerSpawn, tCount)));
+        float tCount = timeToMaxAmount > 0f ? Mathf.Clamp01(elapsedTime / timeToMaxAmount) : 1f;
+        int currentSpawnAmount = Mathf.Max(1, Mathf.RoundToInt(Mathf.Lerp(startSpawnAmount, maxSpawnAmount, tCount)));
 
         timer += Time.deltaTime;
-        if (timer >= currentInterval)
+
+        if (timer >= currentInterval && !isSpawning)
         {
-            int maxActive = Mathf.Max(0, Mathf.FloorToInt(maxActiveEnemies));
-            int active = enemyParent ? enemyParent.childCount : 0;
-
-            if (active < maxActive)
-            {
-                int canSpawn = Mathf.Min(enemiesPerSpawn, maxActive - active);
-                SpawnMultipleEnemies(canSpawn);
-            }
-
+            StartCoroutine(SpawnEnemiesUsingBudget(currentSpawnAmount));
             timer = 0f;
         }
     }
 
-    private void SpawnMultipleEnemies(int count)
+    private IEnumerator SpawnEnemiesUsingBudget(int budget)
     {
-        if (count <= 0) return;
-        if (spawnerPoints == null || spawnerPoints.Length == 0 || enemyPrefab == null)
-            return;
-
-        List<int> availableIndices = new List<int>();
-        for (int i = 0; i < spawnerPoints.Length; i++) availableIndices.Add(i);
-
-        HashSet<int> usedThisBatch = new HashSet<int>();
-
-        for (int i = 0; i < count; i++)
+        isSpawning = true;
+        if (budget <= 0 || availableEnemies.Count == 0)
         {
-            List<int> candidates = new List<int>();
-            foreach (int idx in availableIndices)
+            isSpawning = false;
+            yield break;
+        }
+
+        int remainingBudget = budget;
+
+        while (remainingBudget > 0)
+        {
+            List<int> availableLineIndices = new List<int>();
+            for (int i = 0; i < spawnerPoints.Length; i++)
             {
-                if (usedThisBatch.Contains(idx)) continue;
-                Transform sp = spawnerPoints[idx];
-                if (!IsSpawnPointOccupied(sp))
-                    candidates.Add(idx);
+                if (currentLineCounts[i] < maxEnemiesPerLine)
+                {
+                    availableLineIndices.Add(i);
+                }
             }
 
-            if (candidates.Count == 0)
+            if (availableLineIndices.Count == 0)
             {
                 break;
             }
 
-            int chosen = candidates[Random.Range(0, candidates.Count)];
-            usedThisBatch.Add(chosen);
+            EnemyType enemyToSpawn = SelectAffordableEnemy(remainingBudget);
 
-            Transform spawnPoint = spawnerPoints[chosen];
-            GameObject enemyInstance = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+            if (enemyToSpawn.prefab == null)
+            {
+                break;
+            }
+
+            int chosenIndexInList = Random.Range(0, availableLineIndices.Count);
+            int lineIndex = availableLineIndices[chosenIndexInList];
+            Transform spawnPoint = spawnerPoints[lineIndex];
+
+            if (IsSpawnPointOccupied(spawnPoint))
+            {
+                availableLineIndices.RemoveAt(chosenIndexInList);
+                continue;
+            }
+
+            GameObject enemyInstance = Instantiate(enemyToSpawn.prefab, spawnPoint.position, Quaternion.identity);
             if (enemyParent != null)
                 enemyInstance.transform.SetParent(enemyParent);
+
+            remainingBudget -= enemyToSpawn.cost;
+            currentLineCounts[lineIndex]++;
+
+            Zombie comp = enemyInstance.GetComponent<Zombie>();
+            if (comp != null)
+            {
+                comp.SetSpawnerReference(this, lineIndex, enemyToSpawn.cost);
+            }
+
+            if (spawnBurstDelay > 0)
+            {
+                yield return new WaitForSeconds(spawnBurstDelay);
+            }
         }
+
+        isSpawning = false;
+    }
+
+    private EnemyType SelectAffordableEnemy(int budget)
+    {
+        List<EnemyType> affordableEnemies = new List<EnemyType>();
+        foreach (var enemy in availableEnemies)
+        {
+            if (enemy.cost <= budget)
+            {
+                affordableEnemies.Add(enemy);
+            }
+        }
+
+        if (affordableEnemies.Count == 0)
+        {
+            return new EnemyType { prefab = null, cost = 0 };
+        }
+
+        return affordableEnemies[Random.Range(0, affordableEnemies.Count)];
     }
 
     private bool IsSpawnPointOccupied(Transform spawnPoint)
@@ -113,18 +175,36 @@ public class EnemySpawner : MonoBehaviour
         if (enemyParent == null) return false;
 
         float sqrRadius = spawnPointOccupationRadius * spawnPointOccupationRadius;
+
         for (int i = 0; i < enemyParent.childCount; i++)
         {
             Transform child = enemyParent.GetChild(i);
-            if (child == null) continue;
             if ((child.position - spawnPoint.position).sqrMagnitude <= sqrRadius)
                 return true;
         }
         return false;
     }
+
+    public void EnemyDied(int lineIndex)
+    {
+        if (lineIndex >= 0 && lineIndex < currentLineCounts.Length)
+        {
+            currentLineCounts[lineIndex] = Mathf.Max(0, currentLineCounts[lineIndex] - 1);
+        }
+    }
+
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(spawnerPoints[0].position, spawnPointOccupationRadius);
+        if (spawnerPoints != null)
+        {
+            Gizmos.color = Color.cyan;
+            foreach (var point in spawnerPoints)
+            {
+                if (point != null)
+                {
+                    Gizmos.DrawWireSphere(point.position, spawnPointOccupationRadius);
+                }
+            }
+        }
     }
 }
