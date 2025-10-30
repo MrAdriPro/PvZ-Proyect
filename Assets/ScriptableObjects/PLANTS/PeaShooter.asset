@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c116a1bfd6e69d41ae489d40a704815, type: 3}
   m_Name: PeaShooter
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 100
   speed: 0
   modelPrefab: {fileID: 9186256597907894098, guid: 80cb6ac9359b09d41bdcc00720724e70, type: 3}
   sunCost: 100
   attackCooldown: 1
   projectilePrefab: {fileID: 8043949409385448226, guid: d0f323edab886c5479d839e0a7ff8cdc, type: 3}
-  attackRange: 5.24
+  attackRange: 5.79
   bulletSpeed: 5
   damage: 10
+  plantType: 0
