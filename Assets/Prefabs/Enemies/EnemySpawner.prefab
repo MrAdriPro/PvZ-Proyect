@@ -118,9 +118,22 @@ MonoBehaviour:
   - {fileID: 2442410205796006780}
   - {fileID: 7073140699531233631}
   - {fileID: 3808179597269913884}
-  enemyPrefab: {fileID: 5072209196345074959, guid: 574579c9dd38529459e76ecd4cbef1e3, type: 3}
-  spawnInterval: 1
+  availableEnemies:
+  - prefab: {fileID: 5072209196345074959, guid: 574579c9dd38529459e76ecd4cbef1e3, type: 3}
+    cost: 1
+  - prefab: {fileID: 5072209196345074959, guid: a4bcfd33b3eb1fb4599d1c46395fdf0d, type: 3}
+    cost: 5
+  startSpawnInterval: 5
+  minSpawnInterval: 1
+  timeToMaxRate: 30
+  spawnBurstDelay: 0.5
+  startSpawnAmount: 1
+  maxSpawnAmount: 10
+  timeToMaxAmount: 30
+  maxEnemiesPerLine: 10
+  spawnPointOccupationRadius: 0.3
   enemyParent: {fileID: 1320752186024728143}
+  elapsedTime: 0
 --- !u!1 &7284742289830290906
 GameObject:
   m_ObjectHideFlags: 0

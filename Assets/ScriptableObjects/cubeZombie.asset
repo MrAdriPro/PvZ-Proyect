@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45f03ff8fff865b47ab523e7cf20b78f, type: 3}
-  m_Name: BasicZombie
+  m_Name: cubeZombie
   m_EditorClassIdentifier: 
   maxHealth: 100
   speed: 0.5
@@ -19,4 +19,4 @@ MonoBehaviour:
   attackRate: 1
   attackRange: 0.5
   isArmored: 0
-  numberOfPower: 1
+  numberOfPower: 2

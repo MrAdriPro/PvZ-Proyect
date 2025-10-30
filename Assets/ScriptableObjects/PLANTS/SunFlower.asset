@@ -16,7 +16,7 @@ MonoBehaviour:
   speed: 0
   modelPrefab: {fileID: 3041064225700585668, guid: a7b2334c361fa9e4d81a7d4927cc73bc, type: 3}
   sunCost: 50
-  attackCooldown: 2
+  attackCooldown: 6
   projectilePrefab: {fileID: 4670375159024712175, guid: a375f43d599e8a348bd8c20147c70236, type: 3}
   attackRange: 1
   bulletSpeed: 5

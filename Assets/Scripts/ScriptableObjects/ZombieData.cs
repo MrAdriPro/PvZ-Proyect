@@ -9,5 +9,6 @@ public class ZombieData : UnitData
     public float attackRate;
     public float attackRange;
     public bool isArmored;
+    public int numberOfPower;
     
 }
